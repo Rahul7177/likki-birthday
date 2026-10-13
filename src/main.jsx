@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {motion, AnimatePresence} from 'framer-motion';
 import {Heart, MailOpen, Sparkles, Music2, Download, Play, ChevronDown, X, VolumeX} from 'lucide-react';
+import confetti from 'canvas-confetti';
 import './style.css';
 
 const photos = [
@@ -34,18 +35,51 @@ const chapters = [
 ];
 function App(){
  const [opened,setOpened]=useState(false),[active,setActive]=useState(null),[note,setNote]=useState(null),[wish,setWish]=useState(false),[showLetter,setShowLetter]=useState(false);
+ const burstAt = useCallback((x, y, heart = false) => {
+  const colors = heart ? ['#c45665', '#fc64a4', '#f1b5b9', '#88444c'] : ['#c45665', '#fc64a4', '#f1b5b9', '#f6c96b', '#88444c'];
+  confetti({particleCount: heart ? 9 : 20, spread: heart ? 48 : 66, startVelocity: heart ? 16 : 24, gravity: .9, ticks: 100, scalar: heart ? .72 : .85, origin: {x: Math.min(.98, Math.max(.02, x)), y: Math.min(.98, Math.max(.02, y))}, colors, shapes: heart ? ['circle'] : ['square', 'circle'], disableForReducedMotion: true});
+  if (heart) confetti({particleCount: 3, spread: 35, startVelocity: 12, gravity: .65, ticks: 75, scalar: 1.15, origin: {x, y}, colors: ['#c45665', '#fc64a4'], shapes: ['circle'], disableForReducedMotion: true});
+ }, []);
+ const handleSurfaceClick = useCallback((event) => {
+  const target = event.target;
+  if (target.closest('button, a, input, video, textarea, select, label, .lightbox, .letter-overlay')) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  burstAt(event.clientX / window.innerWidth, event.clientY / window.innerHeight, true);
+ }, [burstAt]);
+ useEffect(() => {
+  const onPointerDown = (event) => {
+   if (!opened || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+   const target = event.target;
+   if (!target.closest('button, a, input, video, textarea, select, label')) burstAt(event.clientX / window.innerWidth, event.clientY / window.innerHeight, true);
+  };
+  window.addEventListener('pointerdown', onPointerDown, {passive:true});
+  return () => window.removeEventListener('pointerdown', onPointerDown);
+ }, [opened, burstAt]);
+ const celebrate = useCallback((event, big = false) => {
+  const rect = event.currentTarget.getBoundingClientRect();
+  burstAt((rect.left + rect.width / 2) / window.innerWidth, (rect.top + rect.height / 2) / window.innerHeight, !big);
+  if (big) {
+   setTimeout(() => confetti({particleCount: 55, spread: 95, startVelocity: 28, gravity: .8, ticks: 140, origin: {x:.5,y:.46}, colors:['#c45665','#fc64a4','#f1b5b9','#f6c96b','#88444c'], disableForReducedMotion:true}), 120);
+  }
+ }, [burstAt]);
  return <div className="site">
   <div className="grain" aria-hidden="true"/>
-  {!opened && <motion.div className="intro" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><div className="intro-orbit">♡</div><p className="eyebrow">A little something, just for you</p><h1>For Likhita<span>,</span><br/><i>with warmth.</i></h1><p className="intro-copy">A small collection of moments, smiles, and things I wanted you to know.</p><button className="primary" onClick={()=>setOpened(true)}><MailOpen size={17}/> Open your little surprise</button><p className="tiny">made with care · just for your birthday</p></motion.div>}
+
+  <div className="ambient-decor" aria-hidden="true">
+   <span className="balloon balloon-one">♡</span><span className="balloon balloon-two">♡</span><span className="balloon balloon-three">♡</span><span className="balloon balloon-four">♡</span>
+   <span className="float-heart heart-one">♥</span><span className="float-heart heart-two">♡</span><span className="float-heart heart-three">♥</span><span className="float-heart heart-four">♡</span>
+   <span className="confetti-drift confetti-one">✦</span><span className="confetti-drift confetti-two">✧</span><span className="confetti-drift confetti-three">✦</span><span className="confetti-drift confetti-four">✧</span>
+  </div>
+  {!opened && <motion.div className="intro" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><div className="intro-orbit">♡</div><p className="eyebrow">A little something, just for you</p><h1>For Likhita<span>,</span><br/><i>with warmth.</i></h1><p className="intro-copy">A small collection of moments, smiles, and things I wanted you to know.</p><button className="primary" onClick={e=>{celebrate(e,true);setOpened(true)}}><MailOpen size={17}/> Open your little surprise</button><p className="tiny">made with care · just for your birthday</p></motion.div>}
   {opened && <motion.main initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:.8}}>
    <nav><a className="brand" href="#top">for likhita <span>♡</span></a><a href="#memories">memories</a><a href="#letter">a little note</a></nav>
    <section className="hero" id="top"><div className="hero-copy"><p className="eyebrow"><Sparkles size={14}/> OCTOBER 28 · YOUR DAY</p><h1>Some people make<br/>ordinary days <i>beautiful.</i></h1><p className="lead">This is a little collection of memories, made for someone whose calm smile, quiet kindness, and wonderfully silly side deserve to be celebrated.</p><a className="text-link" href="#memories">Let's look back together <ChevronDown size={16}/></a></div><div className="hero-photo"><img src="/photos/1000067362.jpg" alt="The first bowling-day group photo"/><span className="photo-tag">where it all began · Mysore</span><span className="heart-stamp">♡</span></div></section>
    <section className="dedication"><span className="decor">✳</span><p className="eyebrow">A small thing I wanted to say</p><blockquote>“You don't have to tell someone everything to feel that <i>they care.</i>”</blockquote><p className="dedication-sub">And that's one of the things I appreciate most about knowing you.</p></section>
-   <section className="memories" id="memories"><div className="section-head"><p className="eyebrow">THE LITTLE THINGS</p><h2>Our collection of <i>ordinary magic.</i></h2><p>Tap any photo. Some memories deserve a second look.</p></div><div className="photo-grid">{photos.map((p,i)=><motion.button key={p[0]} className={`photo-card card-${i%3}`} onClick={()=>setActive(p)} whileHover={{y:-5}} whileTap={{scale:.985}}><img src={'/photos/'+p[0]} alt={p[1]} loading="lazy"/><span className="card-caption"><b>{p[1]}</b><small>{p[2]}</small></span></motion.button>)}</div></section>
+   <section className="memories" id="memories"><div className="section-head"><p className="eyebrow">THE LITTLE THINGS</p><h2>Our collection of <i>ordinary magic.</i></h2><p>Tap any photo. Some memories deserve a second look.</p></div><div className="photo-grid">{photos.map((p,i)=><motion.button key={p[0]} className={`photo-card card-${i%3}`} onClick={e=>{celebrate(e);setActive(p)}} whileHover={{y:-5, rotate: i%2===0 ? .5 : -.5}} whileTap={{scale:.985}}><img src={'/photos/'+p[0]} alt={p[1]} loading="lazy"/><span className="card-caption"><b>{p[1]}</b><small>{p[2]}</small></span></motion.button>)}</div></section>
    <section className="film-section"><div className="section-head"><p className="eyebrow">A LITTLE FILM</p><h2>For the memories<br/><i>we get to keep.</i></h2><p>A cinematic collection of the moments you shared. Best watched with a little quiet time.</p></div><div className="film-frame"><video controls playsInline preload="metadata" poster="/photos/1000067362.jpg"><source src="/birthday_film.mp4" type="video/mp4"/>Your browser does not support embedded video.</video></div><a className="text-link film-download" href="/birthday_film.mp4" download="For-Likhita-Birthday-Film.mp4"><Download size={15}/> Save the birthday film</a></section>
-   <section className="chapters"><div className="section-head"><p className="eyebrow">A FEW THINGS I MEAN</p><h2>Not just pictures.<br/><i>A little of the story, too.</i></h2><p>Open each little chapter when you feel like it.</p></div><div className="chapter-list">{chapters.map((c,i)=><div className="chapter" key={c.title}><button onClick={()=>setNote(note===i?null:i)} aria-expanded={note===i}><span className="chapter-number">0{i+1}</span><span className="chapter-name"><b>{c.title}</b><small>{c.sub}</small></span><span className="plus">{note===i?'−':'+'}</span></button><AnimatePresence>{note===i&&<motion.div className="chapter-text" initial={{height:0,opacity:0}} animate={{height:'auto',opacity:1}} exit={{height:0,opacity:0}}><p>{c.text}</p></motion.div>}</AnimatePresence></div>)}</div></section>
-   <section className="letter-section" id="letter"><div className="letter-card"><div className="letter-flower">✳</div><p className="eyebrow">OPEN WHEN YOU'RE READY</p><h2>A little note<br/><i>for your birthday.</i></h2><p>Some things feel better when they're written down. This is one of them.</p><button className="primary" onClick={()=>setShowLetter(true)}><MailOpen size={17}/> Read your letter</button><span className="letter-footer">with warmth, always ♡</span></div></section>
-   <section className="wish-section"><p className="eyebrow">MAKE A LITTLE WISH</p><h2>Here's to a year that is <i>kind to you.</i></h2><p>Take a breath, make a wish, and tap the candle.</p><button className={`candle ${wish?'lit':''}`} onClick={()=>setWish(!wish)} aria-label="Make a birthday wish"><span className="flame">✦</span><span className="wick"/><span className="wax"/></button>{wish&&<motion.p className="wish-reveal" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}}>May life give you many reasons to smile — and people who make you feel understood. ♡</motion.p>}</section>
+   <section className="chapters"><div className="section-head"><p className="eyebrow">A FEW THINGS I MEAN</p><h2>Not just pictures.<br/><i>A little of the story, too.</i></h2><p>Open each little chapter when you feel like it.</p></div><div className="chapter-list">{chapters.map((c,i)=><div className="chapter" key={c.title}><button onClick={e=>{celebrate(e);setNote(note===i?null:i)}} aria-expanded={note===i}><span className="chapter-number">0{i+1}</span><span className="chapter-name"><b>{c.title}</b><small>{c.sub}</small></span><span className="plus">{note===i?'−':'+'}</span></button><AnimatePresence>{note===i&&<motion.div className="chapter-text" initial={{height:0,opacity:0}} animate={{height:'auto',opacity:1}} exit={{height:0,opacity:0}}><p>{c.text}</p></motion.div>}</AnimatePresence></div>)}</div></section>
+   <section className="letter-section" id="letter"><div className="letter-card"><div className="letter-flower">✳</div><p className="eyebrow">OPEN WHEN YOU'RE READY</p><h2>A little note<br/><i>for your birthday.</i></h2><p>Some things feel better when they're written down. This is one of them.</p><button className="primary" onClick={e=>{celebrate(e);setShowLetter(true)}}><MailOpen size={17}/> Read your letter</button><span className="letter-footer">with warmth, always ♡</span></div></section>
+   <section className="wish-section"><p className="eyebrow">MAKE A LITTLE WISH</p><h2>Here's to a year that is <i>kind to you.</i></h2><p>Take a breath, make a wish, and tap the candle.</p><button className={`candle ${wish?'lit':''}`} onClick={e=>{celebrate(e,!wish);setWish(!wish)}} aria-label="Make a birthday wish"><span className="flame">✦</span><span className="wick"/><span className="wax"/></button>{wish&&<motion.p className="wish-reveal" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}}>May life give you many reasons to smile — and people who make you feel understood. ♡</motion.p>}</section>
    <footer><span>Made with care, for Likhita ♡</span><span>Some days become stories. This is one of ours.</span></footer>
   </motion.main>}
   <AnimatePresence>{active&&<motion.div className="lightbox" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setActive(null)}><button className="close" onClick={()=>setActive(null)} aria-label="Close"><X/></button><motion.div className="lightbox-inner" initial={{scale:.96,y:10}} animate={{scale:1,y:0}} onClick={e=>e.stopPropagation()}><img src={'/photos/'+active[0]} alt={active[1]}/><h3>{active[1]}</h3><p>{active[2]}</p></motion.div></motion.div>}</AnimatePresence>
