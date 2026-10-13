@@ -69,3 +69,25 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--rose);outline-offse
  .full-letter p{font-size:12pt!important;line-height:1.65!important;color:#493c3b!important;orphans:3;widows:3}
  .full-letter .eyebrow{font-size:9pt!important;color:#88444c!important}
 }
+
+
+/* Keep the complete letter visible on screen and in print */
+.full-letter{height:auto!important;max-height:none!important;overflow:visible!important;padding-bottom:clamp(38px,6vw,64px)}
+.full-letter p{overflow-wrap:anywhere;hyphens:auto}
+.letter-signoff{position:relative;z-index:1;margin-top:28px;color:#88444c}
+.letter-signoff p{margin:0 0 6px!important}
+.letter-signoff .signature{font-family:'Caveat',cursive;font-size:clamp(28px,4vw,38px)!important;line-height:1.25!important;color:#c45665!important}
+@media print{
+ @page{size:A4;margin:18mm 20mm}
+ html,body,#root{height:auto!important;min-height:0!important;overflow:visible!important;background:#fff!important}
+ body *{visibility:hidden!important}
+ .letter-overlay{position:static!important;inset:auto!important;display:block!important;overflow:visible!important;height:auto!important;min-height:0!important;padding:0!important;margin:0!important;background:#fff!important;opacity:1!important}
+ .letter-overlay .close,.letter-opening-stage,.envelope-scene,.envelope-caption,.letter-decor,.full-letter button{display:none!important}
+ .full-letter,.full-letter *{visibility:visible!important}
+ .full-letter{position:static!important;display:block!important;box-sizing:border-box!important;width:100%!important;max-width:none!important;height:auto!important;max-height:none!important;min-height:0!important;margin:0!important;padding:0!important;overflow:visible!important;border:0!important;box-shadow:none!important;background:#fff!important;color:#493c3b!important;transform:none!important;break-inside:auto!important}
+ .full-letter p{display:block!important;font-size:11.5pt!important;line-height:1.6!important;color:#493c3b!important;white-space:normal!important;overflow:visible!important;break-inside:avoid!important;orphans:3;widows:3;margin:0 0 14pt!important}
+ .full-letter .eyebrow{font-size:9pt!important;color:#88444c!important;letter-spacing:.16em!important;margin-bottom:22pt!important}
+ .letter-signoff{display:block!important;margin-top:24pt!important;break-inside:avoid!important}
+ .letter-signoff p{margin-bottom:5pt!important}
+ .letter-signoff .signature{font-size:24pt!important;color:#88444c!important}
+}
