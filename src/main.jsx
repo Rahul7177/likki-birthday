@@ -61,31 +61,42 @@ function printBirthdayLetter(){
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Happy Birthday, Likhita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-@page{size:A4 portrait;margin:17mm 19mm}
+@page{size:A4 portrait;margin:15mm 19mm}
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#fff;color:#493c3b}
-body{font-family:Georgia,'Times New Roman',serif;font-size:11pt;line-height:1.48}
-main{width:100%;max-width:170mm;margin:0 auto;padding:0}
-.eyebrow{font-family:Arial,sans-serif;font-size:8pt;letter-spacing:.16em;text-transform:uppercase;color:#88444c;margin:0 0 18pt}
-p{margin:0 0 11pt;orphans:2;widows:2}
-.signoff{margin-top:17pt;break-inside:avoid}
-.signoff p{margin:0 0 4pt}
-.signature{font-family:'Brush Script MT','Segoe Script',cursive;font-size:23pt;color:#88444c}
-@media screen{body{max-width:760px;margin:32px auto;padding:28px 36px;box-shadow:0 4px 28px #88444c18}button{position:fixed;right:20px;top:20px;border:0;border-radius:24px;padding:12px 18px;background:#88444c;color:white;font:14px Arial,sans-serif;cursor:pointer}@media print{body{max-width:none;margin:0;padding:0;box-shadow:none}button{display:none}}}
+html,body{margin:0;padding:0;background:#fffdfa;color:#62484b}
+body{font-family:'Cormorant Garamond',Georgia,serif;font-size:12.5pt;line-height:1.42}
+main{position:relative;width:100%;max-width:172mm;margin:0 auto;padding:0}
+.eyebrow{font-family:'DM Sans',Arial,sans-serif;font-size:8pt;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#c45665;margin:0 0 16pt}
+p{margin:0 0 8pt;orphans:2;widows:2}
+.signoff{margin-top:13pt;break-inside:avoid;page-break-inside:avoid;color:#88444c}
+.signoff p{margin:0 0 2pt}
+.signature{font-family:'Caveat','Segoe Script',cursive;font-size:25pt;line-height:1.1;color:#c45665}
+.ornament{font-family:'Cormorant Garamond',serif;color:#c45665;opacity:.6;float:right;font-size:23pt;line-height:1;margin-top:-2pt}
+.print-button{position:fixed;right:20px;top:20px;border:0;border-radius:24px;padding:12px 18px;background:#88444c;color:white;font:14px 'DM Sans',Arial,sans-serif;cursor:pointer}
+@media screen{body{max-width:760px;margin:32px auto;padding:36px 48px;background:#fffdfa;box-shadow:0 4px 28px #88444c18}.print-button{position:fixed}}
+@media print{html,body{width:auto;max-width:none;margin:0;padding:0;background:#fffdfa;box-shadow:none}.print-button{display:none}main{max-width:none}}
 </style>
 </head>
 <body>
-<button onclick="window.print()">Save as PDF / Print</button>
-<main><p class="eyebrow">Happy Birthday, Likhita</p>${paragraphs}<div class="signoff"><p>With lots of warmth,</p><p class="signature">Yours, Rahul ♡</p></div></main>
-<script>window.addEventListener('load',function(){setTimeout(function(){window.print()},250)});window.addEventListener('afterprint',function(){window.close()});</script>
+<button class="print-button" onclick="window.print()">Save as PDF / Print</button>
+<main><span class="ornament" aria-hidden="true">♡</span><p class="eyebrow">Happy Birthday, Likhita</p>${paragraphs}<div class="signoff"><p>With lots of warmth,</p><p class="signature">Yours, Rahul ♡</p></div></main>
+<script>
+window.addEventListener('load',function(){
+ const startPrint=function(){setTimeout(function(){window.print()},300)};
+ if(document.fonts&&document.fonts.ready){document.fonts.ready.then(startPrint)}else{startPrint()}
+});
+window.addEventListener('afterprint',function(){window.close()});
+</script>
 </body>
 </html>`;
  printWindow.document.open();
  printWindow.document.write(html);
  printWindow.document.close();
 }
-
 function App(){
  const [opened,setOpened]=useState(false),[active,setActive]=useState(null),[note,setNote]=useState(null),[wish,setWish]=useState(false),[showLetter,setShowLetter]=useState(false),[letterReady,setLetterReady]=useState(false);
  const burstAt = useCallback((x, y, heart = false) => {
