@@ -91,3 +91,20 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--rose);outline-offse
  .letter-signoff p{margin-bottom:5pt!important}
  .letter-signoff .signature{font-size:24pt!important;color:#88444c!important}
 }
+
+/* Print only the letter in a compact, single-page keepsake */
+@media print{
+ @page{size:A4 portrait;margin:10mm}
+ html,body,#root{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;margin:0!important;padding:0!important;background:#fff!important}
+ body{position:static!important}
+ body *{visibility:hidden!important}
+ .letter-overlay{position:static!important;inset:auto!important;display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;margin:0!important;padding:0!important;background:#fff!important;opacity:1!important;transform:none!important}
+ .letter-overlay .close,.letter-opening-stage,.envelope-scene,.envelope-caption,.letter-decor,.full-letter button{display:none!important}
+ .full-letter,.full-letter *{visibility:visible!important}
+ .full-letter{display:block!important;position:static!important;box-sizing:border-box!important;width:100%!important;max-width:none!important;height:auto!important;min-height:0!important;max-height:none!important;margin:0!important;padding:0!important;overflow:visible!important;border:0!important;box-shadow:none!important;background:#fff!important;color:#493c3b!important;transform:none!important;break-inside:avoid!important;page-break-inside:avoid!important}
+ .full-letter p{display:block!important;position:static!important;font-size:9.5pt!important;line-height:1.28!important;color:#493c3b!important;white-space:normal!important;overflow:visible!important;break-inside:avoid!important;page-break-inside:avoid!important;orphans:2;widows:2;margin:0 0 7pt!important}
+ .full-letter .eyebrow{font-size:8pt!important;letter-spacing:.12em!important;margin:0 0 12pt!important;color:#88444c!important}
+ .letter-signoff{display:block!important;position:static!important;margin-top:12pt!important;break-inside:avoid!important;page-break-inside:avoid!important}
+ .letter-signoff p{margin:0 0 3pt!important;font-size:9.5pt!important;line-height:1.25!important}
+ .letter-signoff .signature{font-size:20pt!important;line-height:1.15!important;color:#88444c!important}
+}
