@@ -46,6 +46,46 @@ And whenever you look back at these pictures, I hope you smile, remembering not 
 Happy Birthday, Likhita.
 
 Stay the beautiful person you are.`;
+
+function printBirthdayLetter(){
+ const printWindow = window.open('', '_blank', 'width=800,height=900');
+ if (!printWindow) {
+  window.alert('Please allow pop-ups for this site, then select “Save this letter” again.');
+  return;
+ }
+ const escapeHtml = value => value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+ const paragraphs = birthdayLetter.split('\\n\\n').map(paragraph => '<p>'+escapeHtml(paragraph)+'</p>').join('');
+ const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Happy Birthday, Likhita</title>
+<style>
+@page{size:A4 portrait;margin:17mm 19mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#493c3b}
+body{font-family:Georgia,'Times New Roman',serif;font-size:11pt;line-height:1.48}
+main{width:100%;max-width:170mm;margin:0 auto;padding:0}
+.eyebrow{font-family:Arial,sans-serif;font-size:8pt;letter-spacing:.16em;text-transform:uppercase;color:#88444c;margin:0 0 18pt}
+p{margin:0 0 11pt;orphans:2;widows:2}
+.signoff{margin-top:17pt;break-inside:avoid}
+.signoff p{margin:0 0 4pt}
+.signature{font-family:'Brush Script MT','Segoe Script',cursive;font-size:23pt;color:#88444c}
+@media screen{body{max-width:760px;margin:32px auto;padding:28px 36px;box-shadow:0 4px 28px #88444c18}button{position:fixed;right:20px;top:20px;border:0;border-radius:24px;padding:12px 18px;background:#88444c;color:white;font:14px Arial,sans-serif;cursor:pointer}@media print{body{max-width:none;margin:0;padding:0;box-shadow:none}button{display:none}}}
+</style>
+</head>
+<body>
+<button onclick="window.print()">Save as PDF / Print</button>
+<main><p class="eyebrow">Happy Birthday, Likhita</p>${paragraphs}<div class="signoff"><p>With lots of warmth,</p><p class="signature">Yours, Rahul ♡</p></div></main>
+<script>window.addEventListener('load',function(){setTimeout(function(){window.print()},250)});window.addEventListener('afterprint',function(){window.close()});</script>
+</body>
+</html>`;
+ printWindow.document.open();
+ printWindow.document.write(html);
+ printWindow.document.close();
+}
+
 function App(){
  const [opened,setOpened]=useState(false),[active,setActive]=useState(null),[note,setNote]=useState(null),[wish,setWish]=useState(false),[showLetter,setShowLetter]=useState(false),[letterReady,setLetterReady]=useState(false);
  const burstAt = useCallback((x, y, heart = false) => {
@@ -96,7 +136,7 @@ function App(){
    <footer><span>Made with care, for Likhita ♡</span><span>Some days become stories. This is one of ours.</span></footer>
   </motion.main>}
   <AnimatePresence>{active&&<motion.div className="lightbox" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setActive(null)}><button className="close" onClick={()=>setActive(null)} aria-label="Close"><X/></button><motion.div className="lightbox-inner" initial={{scale:.96,y:10}} animate={{scale:1,y:0}} onClick={e=>e.stopPropagation()}><img src={'/photos/'+active[0]} alt={active[1]}/><h3>{active[1]}</h3><p>{active[2]}</p></motion.div></motion.div>}</AnimatePresence>
-  <AnimatePresence>{showLetter&&<motion.div className="letter-overlay" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><button className="close" onClick={()=>setShowLetter(false)} aria-label="Close letter"><X/></button><div className={`letter-opening-stage ${letterReady?'letter-is-open':''}`}><div className="envelope-scene" aria-hidden="true"><div className="envelope-shadow"/><div className="envelope-back"/><div className="envelope-letter"><span>For Likhita, ♡</span></div><div className="envelope-front"/><div className="envelope-flap"/><div className="envelope-seal">♡</div></div><p className="envelope-caption">{letterReady?'A little something, from me to you.':'A letter, written just for you…'}</p></div>{letterReady&&<motion.article className="full-letter" initial={{y:26,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:.65,ease:[.22,1,.36,1]}}><div className="letter-decor" aria-hidden="true"><span>♡</span><span>✧</span><span>♡</span><span>✦</span><span>✧</span><span>♡</span></div><p className="eyebrow">HAPPY BIRTHDAY, LIKHITA</p>{birthdayLetter.split('\n\n').map((p,i)=><p key={i}>{p}</p>)}<div className="letter-signoff"><p>With lots of warmth,</p><p className="signature">Yours, Rahul ♡</p></div><button className="outline" onClick={()=>window.print()}><Download size={15}/> Save this letter</button></motion.article>}</motion.div>}</AnimatePresence>
+  <AnimatePresence>{showLetter&&<motion.div className="letter-overlay" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><button className="close" onClick={()=>setShowLetter(false)} aria-label="Close letter"><X/></button><div className={`letter-opening-stage ${letterReady?'letter-is-open':''}`}><div className="envelope-scene" aria-hidden="true"><div className="envelope-shadow"/><div className="envelope-back"/><div className="envelope-letter"><span>For Likhita, ♡</span></div><div className="envelope-front"/><div className="envelope-flap"/><div className="envelope-seal">♡</div></div><p className="envelope-caption">{letterReady?'A little something, from me to you.':'A letter, written just for you…'}</p></div>{letterReady&&<motion.article className="full-letter" initial={{y:26,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:.65,ease:[.22,1,.36,1]}}><div className="letter-decor" aria-hidden="true"><span>♡</span><span>✧</span><span>♡</span><span>✦</span><span>✧</span><span>♡</span></div><p className="eyebrow">HAPPY BIRTHDAY, LIKHITA</p>{birthdayLetter.split('\n\n').map((p,i)=><p key={i}>{p}</p>)}<div className="letter-signoff"><p>With lots of warmth,</p><p className="signature">Yours, Rahul ♡</p></div><button className="outline" onClick={printBirthdayLetter}><Download size={15}/> Save this letter</button></motion.article>}</motion.div>}</AnimatePresence>
  </div>
 }
 
