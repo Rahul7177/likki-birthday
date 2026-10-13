@@ -21,3 +21,25 @@
 .primary:active,.photo-card:active,.chapter>button:active,.candle:active{transform:scale(.97)}
 button:focus-visible,a:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
 @media(prefers-reduced-motion:reduce){.ambient-decor{display:none}}
+
+
+/* Letter reveal: envelope flap opens first, then the letter rises out */
+.letter-overlay{display:flex;flex-direction:column;align-items:center;gap:0;overflow-y:auto;padding:clamp(28px,6vh,64px) 18px 48px}
+.letter-opening-stage{width:min(100%,620px);min-height:clamp(310px,43vh,430px);display:flex;flex-direction:column;align-items:center;justify-content:center;perspective:1200px;flex-shrink:0}
+.envelope-scene{position:relative;width:min(78vw,430px);height:clamp(190px,28vw,280px);max-height:280px;transform-style:preserve-3d;filter:drop-shadow(0 24px 25px #88444c20);margin:20px auto 8px}
+.envelope-shadow{position:absolute;inset:16% 4% 0;border-radius:12px;background:#b45a6a20;filter:blur(22px);transform:translateY(20px) scale(.94)}
+.envelope-back{position:absolute;inset:0;background:#f3cfd0;border:1px solid #e8b7bc;border-radius:8px;z-index:1}
+.envelope-letter{position:absolute;left:7%;right:7%;bottom:7%;height:82%;background:#fffdfa;border:1px solid #f0dfd9;box-shadow:0 4px 14px #88444c12;z-index:2;display:flex;align-items:flex-start;justify-content:center;padding-top:18px;color:#88444c;font:italic 22px 'Caveat',cursive;transform:translateY(0);transition:transform 1s cubic-bezier(.2,.75,.25,1) .65s}
+.envelope-front{position:absolute;inset:0;background:#e9b6bc;clip-path:polygon(0 35%,50% 76%,100% 35%,100% 100%,0 100%);border-radius:0 0 8px 8px;z-index:4;backface-visibility:hidden}
+.envelope-flap{position:absolute;inset:0;background:linear-gradient(145deg,#f8dfe0,#d98d9a);clip-path:polygon(0 0,100% 0,50% 58%);transform-origin:50% 0;transform:rotateX(0deg);z-index:5;backface-visibility:visible;transition:transform .7s cubic-bezier(.3,.7,.2,1);filter:drop-shadow(0 3px 2px #88444c12)}
+.envelope-seal{position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);z-index:6;width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:#c45665;color:#fff;font-size:25px;box-shadow:0 4px 12px #88444c30;transition:opacity .2s ease,transform .3s ease}
+.envelope-caption{margin:25px 0 0;color:#88444c;font:italic 22px 'Caveat',cursive;letter-spacing:.02em;text-align:center;animation:caption-soft-in .7s ease both}
+.letter-is-open .envelope-flap{transform:rotateX(180deg);z-index:1}
+.letter-is-open .envelope-seal{opacity:0;transform:translate(-50%,-50%) scale(.65)}
+.letter-is-open .envelope-letter{transform:translateY(-65%);z-index:3}
+.letter-is-open .envelope-scene{animation:envelope-settle .8s ease .8s both}
+.full-letter{width:min(100%,760px);margin:16px auto 0;padding:clamp(26px,5vw,54px);background:#fffdfa;border:1px solid #f0dedd;box-shadow:0 18px 60px #88444c18;position:relative;z-index:3}
+@keyframes envelope-settle{0%{transform:translateY(0) scale(1)}100%{transform:translateY(10px) scale(.97)}}
+@keyframes caption-soft-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.letter-overlay{padding:58px 14px 32px}.letter-opening-stage{min-height:300px}.envelope-scene{width:min(88vw,390px);height:210px}.envelope-letter{font-size:19px}.envelope-caption{font-size:20px}.full-letter{padding:26px 22px}}
+@media(prefers-reduced-motion:reduce){.envelope-flap,.envelope-letter,.envelope-seal{transition:none}.envelope-scene,.envelope-caption{animation:none}.letter-is-open .envelope-flap{transform:none}.letter-is-open .envelope-letter{transform:translateY(-35%)}}
