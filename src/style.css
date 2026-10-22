@@ -128,3 +128,10 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--rose);outline-offse
 .hero-control-divider{height:18px;width:1px;background:rgba(255,255,255,.35)}
 @media(max-width:760px){.hero-video-controls{left:10px;bottom:10px;padding:5px 8px}.hero-control-button{min-height:28px}.hero-control-button span{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.hero-video-controls,.hero-control-button{transition:none}}
+
+
+/* Keep controls clear of the handwritten caption */
+.hero-video-controls{left:14px;right:auto;top:14px;bottom:auto}
+.hero-download-button{text-decoration:none}
+.hero-download-button:hover{color:#fffaf8}
+@media(max-width:760px){.hero-video-controls{left:10px;top:10px;bottom:auto;gap:6px}.hero-control-button span{font-size:10px}}
