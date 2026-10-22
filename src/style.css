@@ -108,3 +108,11 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--rose);outline-offse
  .letter-signoff p{margin:0 0 3pt!important;font-size:9.5pt!important;line-height:1.25!important}
  .letter-signoff .signature{font-size:20pt!important;line-height:1.15!important;color:#88444c!important}
 }
+
+
+/* Hero film: retain the scrapbook frame and caption while replacing the still image */
+.hero-video-frame{width:100%;max-width:430px;justify-self:center;overflow:hidden}
+.hero-moment-video{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center;background:#fbe4e3}
+.hero-video-frame .photo-tag{z-index:2}
+.hero-video-frame .heart-stamp{z-index:3}
+@media(max-width:760px){.hero-video-frame{width:min(84%,360px);margin-right:12px}.hero-moment-video{aspect-ratio:4/5}}
