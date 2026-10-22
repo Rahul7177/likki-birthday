@@ -116,3 +116,15 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--rose);outline-offse
 .hero-video-frame .photo-tag{z-index:2}
 .hero-video-frame .heart-stamp{z-index:3}
 @media(max-width:760px){.hero-video-frame{width:min(84%,360px);margin-right:12px}.hero-moment-video{aspect-ratio:4/5}}
+
+
+/* Quiet, custom controls for the hero film */
+.hero-video-frame{position:relative}
+.hero-video-controls{position:absolute;z-index:5;left:14px;right:14px;bottom:14px;display:flex;align-items:center;gap:9px;width:max-content;max-width:calc(100% - 28px);padding:7px 10px;border:1px solid rgba(255,255,255,.55);border-radius:999px;background:rgba(48,27,32,.56);color:#fffaf8;box-shadow:0 5px 22px rgba(47,20,27,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:background .2s ease,transform .2s ease}
+.hero-video-controls:hover{background:rgba(48,27,32,.72);transform:translateY(-1px)}
+.hero-control-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:30px;min-height:30px;padding:5px 7px;border:0;border-radius:999px;background:transparent;color:inherit;cursor:pointer;transition:background .2s ease}
+.hero-control-button:hover,.hero-control-button:focus-visible{background:rgba(255,255,255,.18);outline:none}
+.hero-control-button span{font-size:11px;letter-spacing:.01em;white-space:nowrap}
+.hero-control-divider{height:18px;width:1px;background:rgba(255,255,255,.35)}
+@media(max-width:760px){.hero-video-controls{left:10px;bottom:10px;padding:5px 8px}.hero-control-button{min-height:28px}.hero-control-button span{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.hero-video-controls,.hero-control-button{transition:none}}
