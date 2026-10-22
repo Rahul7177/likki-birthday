@@ -135,3 +135,18 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--rose);outline-offse
 .hero-download-button{text-decoration:none}
 .hero-download-button:hover{color:#fffaf8}
 @media(max-width:760px){.hero-video-controls{left:10px;top:10px;bottom:auto;gap:6px}.hero-control-button span{font-size:10px}}
+
+
+/* Personal guitar birthday greeting */
+.guitar-greeting{padding:clamp(64px,9vw,112px) clamp(22px,7vw,100px);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:center;gap:clamp(28px,6vw,76px);background:linear-gradient(135deg,#fff8f5 0%,#f9e8e7 55%,#fffaf8 100%)}
+.guitar-greeting-copy{max-width:390px}
+.guitar-greeting-copy h2{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,62px);font-weight:500;line-height:.98;letter-spacing:-.035em;margin:14px 0 18px}
+.guitar-greeting-copy h2 i{color:var(--rose);font-weight:500}
+.guitar-greeting-copy>p:last-child{font-size:14px;line-height:1.9;color:var(--muted);max-width:340px}
+.guitar-video-card{padding:10px;background:rgba(255,255,255,.74);border:1px solid rgba(196,86,101,.16);border-radius:20px;box-shadow:0 18px 48px rgba(110,58,65,.10);transform:rotate(.35deg)}
+.guitar-greeting-video{display:block;width:100%;max-height:620px;aspect-ratio:9/16;object-fit:contain;background:#211d20;border-radius:13px}
+.guitar-video-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 6px 5px;color:var(--burgundy);font-size:12px}
+.guitar-video-footer>span,.guitar-save-link{display:inline-flex;align-items:center;gap:7px}
+.guitar-save-link{flex-shrink:0;text-decoration:none;color:var(--burgundy);border:1px solid rgba(136,68,76,.25);border-radius:999px;padding:8px 11px;transition:background .2s ease,color .2s ease}
+.guitar-save-link:hover{background:var(--burgundy);color:#fffaf8}
+@media(max-width:760px){.guitar-greeting{grid-template-columns:1fr;padding:66px 22px;gap:24px}.guitar-greeting-copy{max-width:100%}.guitar-greeting-copy h2{font-size:46px}.guitar-video-card{max-width:520px;width:100%;justify-self:center}.guitar-greeting-video{max-height:72svh}.guitar-video-footer{font-size:11px}}
