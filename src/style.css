@@ -150,3 +150,13 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--rose);outline-offse
 .guitar-save-link{flex-shrink:0;text-decoration:none;color:var(--burgundy);border:1px solid rgba(136,68,76,.25);border-radius:999px;padding:8px 11px;transition:background .2s ease,color .2s ease}
 .guitar-save-link:hover{background:var(--burgundy);color:#fffaf8}
 @media(max-width:760px){.guitar-greeting{grid-template-columns:1fr;padding:66px 22px;gap:24px}.guitar-greeting-copy{max-width:100%}.guitar-greeting-copy h2{font-size:46px}.guitar-video-card{max-width:520px;width:100%;justify-self:center}.guitar-greeting-video{max-height:72svh}.guitar-video-footer{font-size:11px}}
+
+
+/* Candle wish reveals the personal guitar performance in-place */
+.wish-guitar-reveal{width:min(100%,520px);margin:26px auto 0;padding:18px;background:rgba(255,255,255,.72);border:1px solid rgba(196,86,101,.2);border-radius:20px;box-shadow:0 14px 42px rgba(110,58,65,.09);text-align:left}
+.wish-guitar-reveal h3{font-family:'Cormorant Garamond',serif;font-size:clamp(27px,4vw,38px);font-weight:500;color:var(--burgundy);text-align:center;margin:8px 0 16px}
+.wish-guitar-reveal .eyebrow{display:flex;justify-content:center;align-items:center;gap:7px}
+.wish-guitar-video{display:block;width:100%;max-height:70svh;aspect-ratio:9/16;object-fit:contain;background:#211d20;border-radius:13px}
+.wish-guitar-reveal .guitar-save-link{margin:13px auto 0;width:max-content}
+.wish-reveal{max-width:620px;margin:22px auto 0}
+@media(max-width:760px){.wish-guitar-reveal{padding:12px}.wish-guitar-video{max-height:60svh}}
