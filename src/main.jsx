@@ -6,24 +6,24 @@ import confetti from 'canvas-confetti';
 import './style.css';
 
 const photos = [
- ['1000067362.jpg','Where it all began','That first bowling day in Mysore.'],
+ ['image1.png','Where it all began','That first bowling day in Mysore.'],
  ['1000067325.jpg','Little adventures','Some days become memories before we even realise it.'],
  ['1000067331.jpg','A day by the water','The kind of afternoon you wish could last a little longer.'],
  ['1000067337.jpg','That smile','A little glimpse of you being you.'],
- ['1000067326.jpg','The silly moments','Because the best memories are rarely planned.'],
- ['1000067327.jpg','Together, in the frame','A moment worth keeping.'],
+ ['sillymoments.png','The silly moments','Because the best memories are rarely planned.'],
+ ['1000067327.jpg','Your last day in Mysore','A tough moment to remember.'],
  ['1000067340.jpg','A familiar kind of comfort','Some company just feels easy.'],
  ['1000067343.jpg','A little dressed up','Another memory tucked safely away.'],
  ['1000067345.jpg','The everyday magic','Nothing extraordinary. And somehow, everything.'],
- ['1000067348.jpg','The happy chaos','Your smile says enough.'],
- ['1000067350.jpg','A little tradition','Some pictures just feel warm.'],
- ['1000067352.jpg','A day to remember','Glad we got to make this memory.'],
+ ['strange_looks.png','The happy chaos','A cute chaotic look.'],
+ ['traditionals.png','Ethnic Day','Some pictures just feel warm.'],
+ ['daytoremember.png','A day to remember','Glad we got to make this memory.'],
  ['1000067353.jpg','Cake, of course','A sweet little moment.'],
- ['1000067355.jpg','A favourite kind of evening','Good company makes ordinary days special.'],
+ ['evening.png','Favourite kind of evenings','Good company makes ordinary days special.'],
  ['1000067356.jpg','One for the album','A little piece of our story.'],
- ['1000067357.jpg','The gang','A memory with our people.'],
+ ['gang.png','The gang','A memory with our people.'],
  ['1000067358.jpg','Never change this energy','A little mischief suits you.'],
- ['1000067359.jpg','In your own little world','I hope you always find reasons to smile.'],
+ ['world.png','In your own little world','I hope you always find reasons to smile.'],
  ['1000067360.jpg','Just being you','And that is more than enough.']
 ];
 const chapters = [
@@ -35,15 +35,15 @@ const chapters = [
 ];
 const birthdayLetter = `Happy Birthday, Likhita. ❤️
 
-I'm really glad that one ordinary day in Mysore brought us into each other's lives. I don't know what all the years ahead have planned for us, or how many more memories we'll add to this little collection. But I know that these moments have made a difference to me, and I'm grateful for them.
+I'm really glad that our destiny brought us into each other's lives. I don't know what all the years ahead have planned for us, or how many more memories we'll add to this little collection. But I know that these moments have made a difference to me, and I'm grateful for them.
 
 Thank you for being the person you are. For the laughter, the conversations, the understanding, and that quiet comfort that makes having you around feel so nice.
 
-I hope this new year of your life is kind to you. I hope you grow into all the things you've dreamed of becoming, discover beautiful things about yourself, and find happiness in places you never expected.
+I hope this new year of your life is kind to you. I hope you grow into all the things you've dreamed of becoming, discover beautiful things about yourself, and find happiness in places you never expected. May you get all things you wish for.
 
 And whenever you look back at these pictures, I hope you smile, remembering not just the places we went or the things we did, but the people we were in those moments. Because someday, these ordinary days will be the memories we wish we could revisit. And I'm glad we have them.
 
-Happy Birthday, Likhita.
+Happy Birthday, Likki.
 
 Stay the beautiful person you are.`;
 
@@ -138,10 +138,10 @@ function App(){
    <span className="float-heart heart-one">♥</span><span className="float-heart heart-two">♡</span><span className="float-heart heart-three">♥</span><span className="float-heart heart-four">♡</span>
    <span className="confetti-drift confetti-one">✦</span><span className="confetti-drift confetti-two">✧</span><span className="confetti-drift confetti-three">✦</span><span className="confetti-drift confetti-four">✧</span>
   </div>
-  {!opened && <motion.div className="intro" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><div className="intro-orbit">♡</div><p className="eyebrow">A little something, just for you</p><h1>For Likhita<span>,</span><br/><i>with warmth.</i></h1><p className="intro-copy">A small collection of moments, smiles, and things I wanted you to know.</p><button className="primary" onClick={e=>{celebrate(e,true);setOpened(true)}}><MailOpen size={17}/> Open your little surprise</button><p className="tiny">made with care · just for your birthday</p></motion.div>}
+  {!opened && <motion.div className="intro" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><div className="intro-orbit">♡</div><p className="eyebrow">A little something, just for you</p><h1>For Likhita<span>,</span><br/><i>with lots of love</i></h1><p className="intro-copy">A small collection of moments, smiles, and things I wanted you to know.</p><button className="primary" onClick={e=>{celebrate(e,true);setOpened(true)}}><MailOpen size={17}/> Open your little surprise</button><p className="tiny">made with love · just for your birthday</p></motion.div>}
   {opened && <motion.main initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:.8}}>
    <nav><a className="brand" href="#top">for likhita <span>♡</span></a><a href="#memories">memories</a><a href="#letter">a little note</a></nav>
-   <section className="hero" id="top"><div className="hero-copy"><p className="eyebrow"><Sparkles size={14}/> OCTOBER 28 · YOUR DAY</p><h1>Some people make<br/>ordinary days <i>beautiful.</i></h1><p className="lead">This is a little collection of memories, made for someone whose calm smile, quiet kindness, and wonderfully silly side deserve to be celebrated.</p><a className="text-link" href="#memories">Let's look back together <ChevronDown size={16}/></a></div><div className="hero-photo hero-video-frame"><video ref={heroVideoRef} className="hero-moment-video" autoPlay muted loop playsInline preload="metadata" aria-label="A little cinematic moment for Likhita" onPlay={()=>setHeroPlaying(true)} onPause={()=>setHeroPlaying(false)} onVolumeChange={e=>setHeroMuted(e.currentTarget.muted)}><source src="/hero-moment.mp4" type="video/mp4"/>Your browser does not support embedded video.</video><span className="photo-tag">a little moment, just for you ♡</span><span className="heart-stamp">♡</span><div className="hero-video-controls" aria-label="Video controls"><button type="button" className="hero-control-button" onClick={toggleHeroPlayback} aria-label={heroPlaying?"Pause video":"Play video"} title={heroPlaying?"Pause":"Play"}>{heroPlaying?<Pause size={15} fill="currentColor"/>:<Play size={15} fill="currentColor"/>}</button><span className="hero-control-divider"/><a className="hero-control-button hero-download-button" href="/hero-moment.mp4" download="Likhita-Cinematic-Moment.mp4" aria-label="Save video" title="Save video"><Download size={15}/><span>Save</span></a><span className="hero-control-divider"/><button type="button" className="hero-control-button audio-control" onClick={toggleHeroAudio} aria-label={heroMuted?"Turn sound on":"Mute video"} title={heroMuted?"Turn sound on":"Mute"}>{heroMuted?<VolumeX size={16}/>:<Volume2 size={16}/>}<span>{heroMuted?"Sound off":"Sound on"}</span></button></div></div></section>
+   <section className="hero" id="top"><div className="hero-copy"><p className="eyebrow"><Sparkles size={14}/> OCTOBER 28th · YOUR DAY</p><h1>Some people make<br/>ordinary days <i>beautiful.</i></h1><p className="lead">This is a little collection of memories, made for the person whose calm smile, quiet kindness, and wonderfully silly side deserve to be celebrated.</p><a className="text-link" href="#memories">Let's look back together <ChevronDown size={16}/></a></div><div className="hero-photo hero-video-frame"><video ref={heroVideoRef} className="hero-moment-video" autoPlay muted loop playsInline preload="metadata" aria-label="A little cinematic moment for Likhita" onPlay={()=>setHeroPlaying(true)} onPause={()=>setHeroPlaying(false)} onVolumeChange={e=>setHeroMuted(e.currentTarget.muted)}><source src="/hero-moment.mp4" type="video/mp4"/>Your browser does not support embedded video.</video><span className="photo-tag">a little moment, just for you ♡</span><span className="heart-stamp">♡</span><div className="hero-video-controls" aria-label="Video controls"><button type="button" className="hero-control-button" onClick={toggleHeroPlayback} aria-label={heroPlaying?"Pause video":"Play video"} title={heroPlaying?"Pause":"Play"}>{heroPlaying?<Pause size={15} fill="currentColor"/>:<Play size={15} fill="currentColor"/>}</button><span className="hero-control-divider"/><a className="hero-control-button hero-download-button" href="/hero-moment.mp4" download="Likhita-Cinematic-Moment.mp4" aria-label="Save video" title="Save video"><Download size={15}/><span>Save</span></a><span className="hero-control-divider"/><button type="button" className="hero-control-button audio-control" onClick={toggleHeroAudio} aria-label={heroMuted?"Turn sound on":"Mute video"} title={heroMuted?"Turn sound on":"Mute"}>{heroMuted?<VolumeX size={16}/>:<Volume2 size={16}/>}<span>{heroMuted?"Sound off":"Sound on"}</span></button></div></div></section>
    <section className="dedication"><span className="decor">✳</span><p className="eyebrow">A small thing I wanted to say</p><blockquote>“You don't have to tell someone everything to feel that <i>they care.</i>”</blockquote><p className="dedication-sub">And that's one of the things I appreciate most about knowing you.</p></section>
    <section className="memories" id="memories"><div className="section-head"><p className="eyebrow">THE LITTLE THINGS</p><h2>Our collection of <i>ordinary magic.</i></h2><p>Tap any photo. Some memories deserve a second look.</p></div><div className="photo-grid">{photos.map((p,i)=><motion.button key={p[0]} className={`photo-card card-${i%3}`} onClick={e=>{celebrate(e);setActive(p)}} whileHover={{y:-5, rotate: i%2===0 ? .5 : -.5}} whileTap={{scale:.985}}><img src={'/photos/'+p[0]} alt={p[1]} loading="lazy"/><span className="card-caption"><b>{p[1]}</b><small>{p[2]}</small></span></motion.button>)}</div></section>
    <section className="film-section"><div className="section-head"><p className="eyebrow">A LITTLE FILM</p><h2>For the memories<br/><i>we get to keep.</i></h2><p>A cinematic collection of the moments you shared. Best watched with a little quiet time.</p></div><div className="film-frame"><video controls playsInline preload="metadata" poster="/photos/1000067362.jpg"><source src="/birthday_film.mp4" type="video/mp4"/>Your browser does not support embedded video.</video></div><a className="text-link film-download" href="/birthday_film.mp4" download="For-Likhita-Birthday-Film.mp4"><Download size={15}/> Save the birthday film</a></section>
@@ -151,7 +151,7 @@ function App(){
    <footer><span>Made with care, for Likhita ♡</span><span>Some days become stories. This is one of ours.</span></footer>
   </motion.main>}
   <AnimatePresence>{active&&<motion.div className="lightbox" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setActive(null)}><button className="close" onClick={()=>setActive(null)} aria-label="Close"><X/></button><motion.div className="lightbox-inner" initial={{scale:.96,y:10}} animate={{scale:1,y:0}} onClick={e=>e.stopPropagation()}><img src={'/photos/'+active[0]} alt={active[1]}/><h3>{active[1]}</h3><p>{active[2]}</p></motion.div></motion.div>}</AnimatePresence>
-  <AnimatePresence>{showLetter&&<motion.div className="letter-overlay" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><button className="close" onClick={()=>setShowLetter(false)} aria-label="Close letter"><X/></button><div className={`letter-opening-stage ${letterReady?'letter-is-open':''}`}><div className="envelope-scene" aria-hidden="true"><div className="envelope-shadow"/><div className="envelope-back"/><div className="envelope-letter"><span>For Likhita, ♡</span></div><div className="envelope-front"/><div className="envelope-flap"/><div className="envelope-seal">♡</div></div><p className="envelope-caption">{letterReady?'A little something, from me to you.':'A letter, written just for you…'}</p></div>{letterReady&&<motion.article className="full-letter" initial={{y:26,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:.65,ease:[.22,1,.36,1]}}><div className="letter-decor" aria-hidden="true"><span>♡</span><span>✧</span><span>♡</span><span>✦</span><span>✧</span><span>♡</span></div><p className="eyebrow">HAPPY BIRTHDAY, LIKHITA</p>{birthdayLetter.split('\n\n').map((p,i)=><p key={i}>{p}</p>)}<div className="letter-signoff"><p>With lots of warmth,</p><p className="signature">Yours, Rahul ♡</p></div><button className="outline" onClick={printBirthdayLetter}><Download size={15}/> Save this letter</button></motion.article>}</motion.div>}</AnimatePresence>
+  <AnimatePresence>{showLetter&&<motion.div className="letter-overlay" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><button className="close" onClick={()=>setShowLetter(false)} aria-label="Close letter"><X/></button><div className={`letter-opening-stage ${letterReady?'letter-is-open':''}`}><div className="envelope-scene" aria-hidden="true"><div className="envelope-shadow"/><div className="envelope-back"/><div className="envelope-letter"><span>For Likhita, ♡</span></div><div className="envelope-front"/><div className="envelope-flap"/><div className="envelope-seal">♡</div></div><p className="envelope-caption">{letterReady?'A little something, from me to you.':'A letter, written just for you…'}</p></div>{letterReady&&<motion.article className="full-letter" initial={{y:26,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:.65,ease:[.22,1,.36,1]}}><div className="letter-decor" aria-hidden="true"><span>♡</span><span>✧</span><span>♡</span><span>✦</span><span>✧</span><span>♡</span></div><p className="eyebrow">HAPPY BIRTHDAY, LIKHITA</p>{birthdayLetter.split('\n\n').map((p,i)=><p key={i}>{p}</p>)}<div className="letter-signoff"><p>With lots of love,</p><p className="signature">Yours, Rahul ♡</p></div><button className="outline" onClick={printBirthdayLetter}><Download size={15}/> Save this letter</button></motion.article>}</motion.div>}</AnimatePresence>
  </div>
 }
 
