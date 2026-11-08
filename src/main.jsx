@@ -104,19 +104,23 @@ function App(){
  const toggleHeroAudio=()=>{const video=heroVideoRef.current;if(!video)return;video.muted=!video.muted;setHeroMuted(video.muted);if(video.paused)video.play().then(()=>setHeroPlaying(true)).catch(()=>{});};
  const [opened,setOpened]=useState(false),[active,setActive]=useState(null),[note,setNote]=useState(null),[wish,setWish]=useState(false),[showLetter,setShowLetter]=useState(false),[letterReady,setLetterReady]=useState(false),[guitarReveal,setGuitarReveal]=useState(false);
  useEffect(() => {
-  // The Vercel API increments one shared counter stored in Upstash Redis.
-  fetch('/api/visits', {method:'POST', headers:{'Content-Type':'application/json'}})
-   .then(response => {
-    if (!response.ok) throw new Error('Visit counter API returned ' + response.status);
-    return response.json();
-   })
-   .then(data => {
-    console.groupCollapsed('%cLikki Birthday Site · Global Visit Diagnostics', 'color:#c45665;font-weight:600');
-    console.info('Total site visits worldwide:', data.totalVisits);
-    console.info('Count scope: all visitors, all devices, persistent shared counter');
-    console.groupEnd();
-   })
-   .catch(error => console.warn('[Likki Birthday Site] Global visit counter unavailable:', error.message));
+  // Local diagnostic only: this count is stored in this visitor's browser.
+  // No IP address, GPS coordinates, or personal information is collected.
+  try {
+   const storageKey = 'likkiBirthdaySiteVisitCount';
+   const visitCount = Number(window.localStorage.getItem(storageKey) || 0) + 1;
+   window.localStorage.setItem(storageKey, String(visitCount));
+   const {timeZone, locale} = Intl.DateTimeFormat().resolvedOptions();
+   const regionHint = timeZone === 'Asia/Kolkata' ? 'India (timezone-based hint)' : 'Not determined';
+   console.groupCollapsed('%cLikki Birthday Site · Local Visit Diagnostics', 'color:#c45665;font-weight:600');
+   console.info('Visits on this browser:', visitCount);
+   console.info('Approximate region hint:', regionHint);
+   console.info('Timezone:', timeZone || 'Unavailable');
+   console.info('Browser locale:', locale || navigator.language || 'Unavailable');
+   console.groupEnd();
+  } catch (error) {
+   console.info('[Likki Birthday Site] Local visit diagnostics unavailable in this browser.');
+  }
  }, []);
  const burstAt = useCallback((x, y, heart = false) => {
   const colors = heart ? ['#c45665', '#fc64a4', '#f1b5b9', '#88444c'] : ['#c45665', '#fc64a4', '#f1b5b9', '#f6c96b', '#88444c'];
